@@ -5,6 +5,7 @@ public class Main {
     private static final int k = 2;
 
     public static void main(String[] args) {
+        SharedMemory sharedMem = new SharedMemory(m);
         Thread threadA = new ThreadA(m,n);
         Thread threadB = new ThreadB();
         Thread threadC = new ThreadC();
