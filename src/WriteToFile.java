@@ -13,9 +13,11 @@ public class WriteToFile {
         }
     }
 
-    public void writeLine(String text) throws IOException {
+    public void writeLine(int number) {
         try {
-            out.write(text);
+            System.out.println(number);
+            out.write(Integer.toString(number));
+            out.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

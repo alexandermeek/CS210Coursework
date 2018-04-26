@@ -7,31 +7,35 @@ public class SharedMemory {
     private Lock lock = new ReentrantLock();
     private Condition notFull = lock.newCondition();
     private Condition notEmpty = lock.newCondition();
-    private int m,size;
+    private int m,countLeft;
     private LinkedList<Integer> numbers = new LinkedList<>();
 
-    public SharedMemory(int m) {
+    public SharedMemory(int m, int countLeft) {
         this.m = m;
-        this.size = 0;
+        this.countLeft = countLeft;
     }
 
-    public int readData() {
+    public int getCountLeft() {
         lock.lock();
+        return countLeft;
+    }
+
+    public int readData() throws InterruptedException{
+        while (numbers.size() == 0) {
+            notEmpty.await();
+        }
         return numbers.peekFirst();
     }
 
-    public void doNothing() {
+    public void finish() {
         lock.unlock();
     }
 
-    public int takeData() throws InterruptedException{
+    public int takeData() {
         try {
-            while(size==0) {
-                notEmpty.await();
-            }
             int temp = numbers.getFirst();
             numbers.removeFirst();
-            this.size--;
+            countLeft--;
             notFull.signalAll();
             return temp;
         } finally {
@@ -42,11 +46,10 @@ public class SharedMemory {
     public void addData(int data) throws InterruptedException{
         lock.lock();
         try {
-            while (size == m) {
+            while (numbers.size() == m) {
                 notFull.await();
             }
             numbers.addLast(data);
-            this.size++;
             notEmpty.signalAll();
         } finally {
             lock.unlock();
