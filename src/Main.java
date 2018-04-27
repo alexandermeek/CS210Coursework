@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -9,16 +8,22 @@ public class Main {
     private static final int C = ConsumerThread.C;
     private static final int D = ConsumerThread.D;
 
-    private static final int m = 4;
-    private static final int n = 100*m;
-    private static final int k = 3; //Can only be 2 or 3 at the moment.
+    private static int m = 4;
+    private static int n = 100*m;
+    private static int k = 2; //Can only be 2 or 3 at the moment.
 
     public static void main(String[] args) throws InterruptedException{
+        if (args.length == 3) {
+            k = Integer.parseInt(args[0]);
+            m = Integer.parseInt(args[1]);
+            n = Integer.parseInt(args[2]);
+        }
+
         SharedMemory sharedMemory = new SharedMemory(m, n);
         Thread threadA = new ProducerThread(sharedMemory, n);
         Thread threadB = new ConsumerThread(B, sharedMemory);
         Thread threadC = new ConsumerThread(C, sharedMemory);
-        Thread threadD;
+        Thread threadD = new Thread();
         if (k == 3) {
             threadD = new ConsumerThread(D, sharedMemory);
         }
