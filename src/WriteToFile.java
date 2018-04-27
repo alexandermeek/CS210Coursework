@@ -15,7 +15,6 @@ public class WriteToFile {
 
     public void writeLine(int number) {
         try {
-            System.out.println(number);
             out.write(Integer.toString(number));
             out.newLine();
         } catch (IOException e) {
