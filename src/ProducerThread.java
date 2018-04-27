@@ -1,13 +1,13 @@
 import java.util.Random;
 
-public class ThreadA extends Thread {
+public class ProducerThread extends Thread {
 
     private static final int RANGE = 100;
 
     private SharedMemory sharedMemory;
     private int n;
 
-    public ThreadA(SharedMemory mem, int n) {
+    public ProducerThread(SharedMemory mem, int n) {
         this.sharedMemory = mem;
         this.n = n;
     }
