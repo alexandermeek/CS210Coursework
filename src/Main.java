@@ -2,14 +2,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The main class for The CS210 Concurrency Coursework. Implementing one producer and
+ * multiple consumers via a shared memory.
+ */
 public class Main {
 
     private static final int B = ConsumerThread.B;
     private static final int C = ConsumerThread.C;
     private static final int D = ConsumerThread.D;
 
-    private static int m = 4;
-    private static int n = 100*m;
+    private static int m = 4; //The size of the shared memory.
+    private static int n = 100*m; //The number of numbers to be produced.
     private static int k = 2; //Can only be 2 or 3 at the moment.
 
     public static void main(String[] args) throws InterruptedException{
@@ -52,6 +56,11 @@ public class Main {
         System.out.println("Finished!, " + totalNumbersWrittenToFile + " numbers total were written to " + k + " files (mem size: " + m + ")");
     }
 
+    /**
+     * Counts the number of lines in a give file.
+     * @param filename The filepath of the file.
+     * @return The number of lines in the file.
+     */
     private static int countLines(String filename) {
         int lines = 0;
         try {

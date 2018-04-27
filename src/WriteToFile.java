@@ -2,9 +2,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * A class for writing lines of text/numbers to a file.
+ */
 public class WriteToFile {
     private BufferedWriter out;
 
+    /**
+     * Creates a new file.
+     * @param filename The path/name of the file.
+     */
     public WriteToFile(String filename) {
         try {
             out = new BufferedWriter(new FileWriter(filename));
@@ -13,6 +20,10 @@ public class WriteToFile {
         }
     }
 
+    /**
+     * Writes a single line to the end of the file.
+     * @param number
+     */
     public void writeLine(int number) {
         try {
             out.write(Integer.toString(number));
@@ -22,6 +33,9 @@ public class WriteToFile {
         }
     }
 
+    /**
+     * Closes the file.
+     */
     public void close() {
         try {
             out.close();
