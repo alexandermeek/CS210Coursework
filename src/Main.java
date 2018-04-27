@@ -49,7 +49,7 @@ public class Main {
             totalNumbersWrittenToFile += countLines("D.txt");
         }
 
-        System.out.println("Finished!, " + totalNumbersWrittenToFile + " numbers total were written to " + k + " files.");
+        System.out.println("Finished!, " + totalNumbersWrittenToFile + " numbers total were written to " + k + " files (mem size: " + m + ")");
     }
 
     private static int countLines(String filename) {
